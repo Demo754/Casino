@@ -1,52 +1,85 @@
+/* Global styling */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #333;
+    background-color: #282c34;
     color: #fff;
+    margin: 0;
+    padding: 0;
 }
 
+#slot-machine {
+    margin-top: 50px;
+}
+
+h1 {
+    color: #ffeb3b;
+    margin-bottom: 20px;
+}
+
+/* Balansevisning */
+#balance {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Hjulene */
 #reels {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
 .reel {
-    font-size: 2em;
+    font-size: 4em;
     padding: 20px;
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
+    background-color: #444;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
     border: 2px solid #fff;
+    transition: transform 0.5s ease;
+}
+
+/* Knapp for å spinne hjulene */
+#controls {
+    margin-top: 20px;
+}
+
+#spinButton {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#spinButton:hover {
+    background-color: #218838;
+}
+
+/* Resultatvisning */
+#result {
+    margin-top: 20px;
+    font-size: 1.5em;
+    color: #f39c12;
+}
+
+/* Animasjon for spinning */
+@keyframes spinAnimation {
+    0% { transform: rotateX(90deg); }
+    50% { transform: rotateX(1800deg); }
+    100% { transform: rotateX(3600deg); }
 }
 
 .spin {
-    animation: spinAnimation 0.5s linear;
-}
-
-@keyframes spinAnimation {
-    0% { transform: translateY(-50px); }
-    50% { transform: translateY(50px); }
-    100% { transform: translateY(0); }
-}
-
-.explosion {
-    animation: explosionAnimation 0.7s ease-out forwards;
-}
-
-@keyframes explosionAnimation {
-    0% { font-size: 2em; color: red; }
-    100% { font-size: 0; color: transparent; }
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #555;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #777;
+    animation: spinAnimation 1s linear infinite;
 }
