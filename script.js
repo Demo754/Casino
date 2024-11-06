@@ -2,9 +2,15 @@ const spinButton = document.getElementById('spinButton');
 const resultDisplay = document.getElementById('result');
 const reels = [document.getElementById('reel1'), document.getElementById('reel2'), document.getElementById('reel3')];
 
-// Symboler for spilleautomaten  
+// Symboler for spilleautomaten med vekting  
 const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '🍀'];
+const weightedSymbols = [    '🍒', '🍒', '🍒', // Vanlig symbol      '🍋', '🍋', '🍋', // Vanlig symbol      '🍊', '🍊',       // Vanlig symbol      '🍉',             // Vanlig symbol      '⭐',              // Sjeldnere symbol      '🍀'              // Sjeldnere symbol  ];
 let balance = 10; // Startbalanse
+
+function getRandomSymbol() {
+    const randomIndex = Math.floor(Math.random() * weightedSymbols.length);
+    return weightedSymbols[randomIndex];
+}
 
 function spinReels() {
     // Legg til "spin" klassen for animasjon  
@@ -15,8 +21,7 @@ function spinReels() {
     // Vent på animasjonen før du spinner hjulene  
     setTimeout(() => {
         for (let i = 0; i < reels.length; i++) {
-            const randomIndex = Math.floor(Math.random() * symbols.length);
-            reels[i].textContent = symbols[randomIndex];
+            reels[i].textContent = getRandomSymbol(); // Bruk den vektede tilfeldig generatoren  
             // Fjern "spin" klassen etter spinning  
             reels[i].classList.remove('spin');
         }
@@ -33,11 +38,11 @@ function checkWin() {
 
     // Sjekk for tre like symboler  
     if (firstSymbol === secondSymbol && secondSymbol === thirdSymbol) {
-        winAmount += 3; // Gi 3 kroner for tre like  
+        winAmount += 20; // Gi 3 kroner for tre like  
     } 
     // Sjekk for to like symboler  
     else if (firstSymbol === secondSymbol || firstSymbol === thirdSymbol || secondSymbol === thirdSymbol) {
-        winAmount += 2; // Gi 1 krone for to like  
+        winAmount += 5; // Gi 1 krone for to like  
     }
 
     // Hvis ingen kombinasjoner, trekk 1 krone  
