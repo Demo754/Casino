@@ -1,58 +1,52 @@
 body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f0f0f0;
     font-family: Arial, sans-serif;
-}
-
-#casino {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
+    background-color: #333;
+    color: #fff;
 }
 
 #reels {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin: 20px 0;
 }
 
 .reel {
-    width: 100px;
-    height: 100px;
-    background-color: #ccc;
-    margin: 0 10px;
-    font-size: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #333;
-    border-radius: 10px;
-    transition: transform 0.5s ease; /* Legg til en overgang for animasjonen */
+    font-size: 2em;
+    padding: 20px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+}
+
+.spin {
+    animation: spinAnimation 0.5s linear;
+}
+
+@keyframes spinAnimation {
+    0% { transform: translateY(-50px); }
+    50% { transform: translateY(50px); }
+    100% { transform: translateY(0); }
+}
+
+.explosion {
+    animation: explosionAnimation 0.7s ease-out forwards;
+}
+
+@keyframes explosionAnimation {
+    0% { font-size: 2em; color: red; }
+    100% { font-size: 0; color: transparent; }
 }
 
 button {
     padding: 10px 20px;
-    font-size: 16px;
+    background-color: #555;
+    color: #fff;
+    border: none;
     cursor: pointer;
 }
 
-#result {
-    margin-top: 20px;
-    font-size: 24px;
-    color: green;
-}
-
-/* Animasjon for å spinne hjulene */
-@keyframes spin {
-    0% { transform: rotateX(0); }
-    100% { transform: rotateX(360deg); }
-}
-
-.spin {
-    animation: spin 0.5s ease forwards; /* Bruker animasjonen */
+button:hover {
+    background-color: #777;
 }

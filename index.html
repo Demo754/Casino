@@ -3,20 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slot Machine</title>
+    <title>Super Spillautomat</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="casino">
-        <h1>Slot Machine</h1>
+    <div id="slot-machine">
+        <h1>Super Spillautomat</h1>
+        <div id="balance">Balanse: 100 kr</div>
+
+        <!-- Hjulene på spillautomaten -->
         <div id="reels">
-            <div class="reel" id="reel1"></div>
-            <div class="reel" id="reel2"></div>
-            <div class="reel" id="reel3"></div>
+            <div class="reel" id="reel1">🍒</div>
+            <div class="reel" id="reel2">🍋</div>
+            <div class="reel" id="reel3">🍊</div>
+            <div class="reel" id="reel4">🍉</div>
+            <div class="reel" id="reel5">⭐</div>
+
+
         </div>
-        <button id="spinButton">Spin</button>
-        <div id="result"></div>
+
+        <!-- Kontrollpanel med spin-knapp -->
+        <div id="controls">
+            <button id="spinButton">Spin!</button>
+            <div id="result"></div>
+        </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
