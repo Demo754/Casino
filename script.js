@@ -1,5 +1,7 @@
 // DOM-elementer
 const spinButton = document.getElementById('spinButton');
+const loanButton = document.getElementById('loanButton');
+const payLoanButton = document.getElementById('payLoanButton');
 const resultDisplay = document.getElementById('result');
 const balanceDisplay = document.getElementById('balance');
 const loanStatus = document.getElementById('loanStatus');
