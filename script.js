@@ -13,7 +13,7 @@ const reels = [
 ];
 
 // Symboler og vekting for spilleautomaten
-const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '🍀', '💎', '💣', '🦹'];  // '🦹' representerer tyven
+const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '🍀', '💎', '💣', '🦹'];
 const symbolWeights = {
     '🍒': 5, '🍋': 4, '🍊': 2, '🍉': 1.8,
     '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.8, '🦹': 1
