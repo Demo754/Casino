@@ -92,7 +92,7 @@ function checkWin(results) {
     // Hvis vi får en bombe eller tyv på noen hjul, mister vi penger
     if (results.includes('💣')) {
         winAmount -= 100;  // Tapte 150 kr ved bombe
-        resultDisplay.textContent = `💣 Bombe! Du mistet 150 kr!`;
+        resultDisplay.textContent = `💣 Bombe! Du mistet 100 kr!`;
     } else if (results.includes('🦹')) {
         winAmount = 0; // Nullstill gevinsten hvis tyven dukker opp
         resultDisplay.textContent = `🦹 Tyven stjeler gevinsten din!`;
@@ -138,12 +138,25 @@ function checkWin(results) {
     updateDisplays();
 }
 
+// Håndter nedtelling for tilbakebetaling
+function handleLoanCountdown() {
+    if (spinsLeftToPay === 0 && loan > 0) {
+        resultDisplay.textContent = 'Du klarte ikke å betale lånet i tide. Du taper!';
+        balance = 0;
+        loan = 0;
+        updateDisplays();
+    }
+}
+
 // Spin-logikken
 function spinReels() {
     if (balance < 5) {  // Minimum 5 kr for spinn
         resultDisplay.textContent = "Huset vinner alltid!";
         return;
     }
+
+    // Hindre rask klikk på spin-knappen
+    spinButton.disabled = true;
 
     balance -= 5;
     updateDisplays();
@@ -159,7 +172,12 @@ function spinReels() {
             return symbol;
         });
 
+        // Sjekk om lånet skal forfalle
+        handleLoanCountdown();
         checkWin(spinResults);
+
+        // Aktiver spin-knappen igjen etter spinn
+        spinButton.disabled = false;
     }, 500);
 }
 
