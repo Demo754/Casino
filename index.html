@@ -9,10 +9,12 @@
 <body>
     <div id="slot-machine">
         <h1>Super Spillautomat</h1>
+        
+        <!-- Balansevisning -->
         <div id="balance">Balanse: 100 kr</div>
-        <div id="loanStatus"> Lånesaldo: 0 kr </div>
-        <div> id="spinnCountDown"> Spinn igjen før tilbakebetaling: -</div>
-
+        <div id="loanStatus">Lånesaldo: 0 kr</div>
+        <div id="spinCountdown">Spinn igjen før tilbakebetaling: -</div>
+        
         <!-- Hjulene på spillautomaten -->
         <div id="reels">
             <div class="reel" id="reel1">🍒</div>
@@ -20,17 +22,15 @@
             <div class="reel" id="reel3">🍊</div>
             <div class="reel" id="reel4">🍉</div>
             <div class="reel" id="reel5">⭐</div>
-
-
         </div>
 
-        <!-- Kontrollpanel med spin-knapp -->
+        <!-- Kontrollpanel med spin-knapp og låne-/betalingsknapper -->
         <div id="controls">
             <button id="spinButton">Spin!</button>
-            <button id="loanButton"> Ta et lån (100 kr) </button>
-            <button id="payLoanButton"> Betal lån </button>
+            <button id="loanButton">Ta lån</button>
+            <button id="payLoanButton">Betal lån</button>
+            <div id="result"></div>
         </div>
-        <div id="result"></div>
     </div>
 
     <script src="script.js"></script>
