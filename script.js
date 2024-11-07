@@ -2,6 +2,8 @@
 const spinButton = document.getElementById('spinButton');
 const resultDisplay = document.getElementById('result');
 const balanceDisplay = document.getElementById('balance');
+const loanStatus = document.getElementById('loanStatus');
+const spinCountdownDisplay = document.getElementById('spinCountdown');
 const reels = [
     document.getElementById('reel1'),
     document.getElementById('reel2'),
@@ -30,12 +32,45 @@ const winMultipliers = {
 };
 
 // Startbalanse og lånebeløp
-let balance = 100  // Startbalanse
-let loan = 0;  // Lånebeløp
+let balance = 100;  // Startbalanse
+let loan = 0;       // Lånebeløp
+let spinsLeftToPay = -1;  // Antall spinn før lånet forfaller
 
-// Oppdater balansen i visningen
-function updateBalanceDisplay() {
+// Oppdater balansen og andre visninger
+function updateDisplays() {
     balanceDisplay.textContent = `Balanse: ${balance} kr`;
+    loanStatus.textContent = `Lånesaldo: ${loan} kr`;
+    spinCountdownDisplay.textContent = `Spinn igjen før tilbakebetaling: ${spinsLeftToPay > 0 ? spinsLeftToPay : '-'}`;
+}
+
+// Lånefunksjon
+function takeLoan() {
+    if (loan > 0) {
+        resultDisplay.textContent = 'Du har allerede et lån!';
+        return;
+    }
+    loan = 50;
+    balance += loan;
+    spinsLeftToPay = 10;  // Antall spinn før lånet må betales
+    resultDisplay.textContent = 'Du tok et lån på 50 kr!';
+    updateDisplays();
+}
+
+// Betale lån
+function payLoan() {
+    if (loan === 0) {
+        resultDisplay.textContent = 'Du har ingen lån å betale.';
+        return;
+    }
+    if (balance >= loan) {
+        balance -= loan;
+        loan = 0;
+        spinsLeftToPay = -1;
+        resultDisplay.textContent = 'Lånet ditt er betalt tilbake!';
+    } else {
+        resultDisplay.textContent = 'Ikke nok balanse til å betale lånet.';
+    }
+    updateDisplays();
 }
 
 // Tilfeldig symbolgenerator basert på vekting
@@ -79,6 +114,16 @@ function checkWin(results) {
         } else {
             resultDisplay.textContent = "Ingen gevinst denne gangen.";
         }
+
+        // Reduser antall spinn til lånet må betales
+        if (spinsLeftToPay > 0) {
+            spinsLeftToPay -= 1;
+            if (spinsLeftToPay === 0 && loan > 0) {
+                resultDisplay.textContent = 'Du klarte ikke å betale lånet i tide. Du taper!';
+                balance = 0;
+                loan = 0;
+            }
+        }
     }
 
     // Oppdater balansen etter at gevinster og eventuelle tap (bomben) er beregnet
@@ -88,18 +133,18 @@ function checkWin(results) {
     if (balance < 0) balance = 0;
 
     // Oppdater balansen på skjermen
-    updateBalanceDisplay();
+    updateDisplays();
 }
 
 // Spin-logikken
 function spinReels() {
     if (balance < 5) {  // Minimum 5 kr for spinn
-        resultDisplay.textContent = "Huset vinner altid!";
+        resultDisplay.textContent = "Huset vinner alltid!";
         return;
     }
 
     balance -= 5;
-    updateBalanceDisplay();
+    updateDisplays();
     resultDisplay.textContent = "Spinning...";
 
     reels.forEach(reel => reel.classList.add('spin'));
@@ -117,5 +162,7 @@ function spinReels() {
 }
 
 // Start spillet
-updateBalanceDisplay();
+updateDisplays();
 spinButton.addEventListener('click', spinReels);
+loanButton.addEventListener('click', takeLoan);
+payLoanButton.addEventListener('click', payLoan); 
