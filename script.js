@@ -94,7 +94,7 @@ function checkWin(results) {
 // Spin-logikken
 function spinReels() {
     if (balance < 5) {  // Minimum 5 kr for spinn
-        resultDisplay.textContent = "Ikke nok penger til å spinne!";
+        resultDisplay.textContent = "Huset vinner altid!";
         return;
     }
 
