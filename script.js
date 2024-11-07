@@ -13,10 +13,10 @@ const reels = [
 ];
 
 // Symboler og vekting for spilleautomaten
-const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '🍀', '💎', '💣'];
+const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '🍀', '💎', '💣', '🦹'];  // '🦹' representerer tyven
 const symbolWeights = {
     '🍒': 5, '🍋': 4, '🍊': 2, '🍉': 1.8,
-    '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.8
+    '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.8, '🦹': 1.5
 };
 
 // Gevinstmultiplikator for antall like symboler
@@ -28,7 +28,8 @@ const winMultipliers = {
     '⭐': [0, 10, 50, 100, 200],
     '💎': [0, 30, 100, 250, 500],
     '🍀': [0, 5, 75, 150, 300],
-    '💣': [0] // Ingen gevinst for bomben
+    '💣': [0],    // Ingen gevinst for bomben
+    '🦹': [0]     // Ingen gevinst for tyven
 };
 
 // Startbalanse og lånebeløp
@@ -36,7 +37,7 @@ let balance = 100;  // Startbalanse
 let loan = 0;       // Lånebeløp
 let spinsLeftToPay = -1;  // Antall spinn før lånet forfaller
 
-// Oppdater balansen og andre visninger
+// Oppdater balanse og andre visninger
 function updateDisplays() {
     balanceDisplay.textContent = `Balanse: ${balance} kr`;
     loanStatus.textContent = `Lånesaldo: ${loan} kr`;
@@ -81,15 +82,18 @@ function getRandomSymbol() {
     return weightedSymbols[Math.floor(Math.random() * weightedSymbols.length)];
 }
 
-// Sjekk gevinst og håndter bomben separat
+// Sjekk gevinst og håndter tyven og bomben separat
 function checkWin(results) {
     let winAmount = 0;
     let symbolCounts = {};  // Objekt for å telle antall av hvert symbol
 
-    // Hvis vi får en bombe på noen hjul, trekker vi penger og stopper videre behandling
+    // Hvis vi får en bombe eller tyv på noen hjul, mister vi penger
     if (results.includes('💣')) {
         winAmount -= 150;  // Tapte 150 kr ved bombe
         resultDisplay.textContent = `💣 Bombe! Du mistet 150 kr!`;
+    } else if (results.includes('🦹')) {
+        winAmount = 0; // Nullstill gevinsten hvis tyven dukker opp
+        resultDisplay.textContent = `🦹 Tyven stjeler gevinsten din!`;
     } else {
         // Tell antall forekomster av hvert symbol
         results.forEach(symbol => {
@@ -99,11 +103,11 @@ function checkWin(results) {
         // Beregn gevinsten basert på antall like symboler
         Object.keys(symbolCounts).forEach(symbol => {
             const count = symbolCounts[symbol];
-            // Unngå å beregne gevinst for bomben (💣)
-            if (symbol !== '💣' && count > 0) {
-                const multiplier = winMultipliers[symbol][count]; // Hent multiplikatoren for antall like symboler
-                if (multiplier && typeof multiplier === 'number') {
-                    winAmount += multiplier; // Legg til gyldig multiplikator
+            // Unngå å beregne gevinst for bomben (💣) og tyven (🦹)
+            if (symbol !== '💣' && symbol !== '🦹' && count > 1) {
+                const multiplier = winMultipliers[symbol][count];
+                if (multiplier) {
+                    winAmount += multiplier;
                 }
             }
         });
@@ -114,25 +118,21 @@ function checkWin(results) {
         } else {
             resultDisplay.textContent = "Ingen gevinst denne gangen.";
         }
+    }
 
-        // Reduser antall spinn til lånet må betales
-        if (spinsLeftToPay > 0) {
-            spinsLeftToPay -= 1;
-            if (spinsLeftToPay === 0 && loan > 0) {
-                resultDisplay.textContent = 'Du klarte ikke å betale lånet i tide. Du taper!';
-                balance = 0;
-                loan = 0;
-            }
+    // Reduser antall spinn til lånet må betales
+    if (spinsLeftToPay > 0) {
+        spinsLeftToPay -= 1;
+        if (spinsLeftToPay === 0 && loan > 0) {
+            resultDisplay.textContent = 'Du klarte ikke å betale lånet i tide. Du taper!';
+            balance = 0;
+            loan = 0;
         }
     }
 
     // Oppdater balansen etter at gevinster og eventuelle tap (bomben) er beregnet
     balance += winAmount;
-
-    // Sørg for at balansen aldri går under 0
-    if (balance < 0) balance = 0;
-
-    // Oppdater balansen på skjermen
+    if (balance < 0) balance = 0;  // Sørg for at balansen aldri går under 0
     updateDisplays();
 }
 
@@ -165,4 +165,4 @@ function spinReels() {
 updateDisplays();
 spinButton.addEventListener('click', spinReels);
 loanButton.addEventListener('click', takeLoan);
-payLoanButton.addEventListener('click', payLoan); 
+payLoanButton.addEventListener('click', payLoan);
