@@ -18,7 +18,7 @@ const reels = [
 const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '🍀', '💎', '💣', '🦹'];
 const symbolWeights = {
     '🍒': 5, '🍋': 4, '🍊': 2, '🍉': 1.8,
-    '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.8, '🦹': 1
+    '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.6, '🦹': 0.8
 };
 
 // Gevinstmultiplikator for antall like symboler
@@ -91,7 +91,7 @@ function checkWin(results) {
 
     // Hvis vi får en bombe eller tyv på noen hjul, mister vi penger
     if (results.includes('💣')) {
-        winAmount -= 150;  // Tapte 150 kr ved bombe
+        winAmount -= 100;  // Tapte 150 kr ved bombe
         resultDisplay.textContent = `💣 Bombe! Du mistet 150 kr!`;
     } else if (results.includes('🦹')) {
         winAmount = 0; // Nullstill gevinsten hvis tyven dukker opp
