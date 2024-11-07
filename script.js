@@ -16,7 +16,7 @@ const reels = [
 const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '🍀', '💎', '💣', '🦹'];  // '🦹' representerer tyven
 const symbolWeights = {
     '🍒': 5, '🍋': 4, '🍊': 2, '🍉': 1.8,
-    '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.8, '🦹': 1.1
+    '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.8, '🦹': 1
 };
 
 // Gevinstmultiplikator for antall like symboler
