@@ -7,14 +7,14 @@ const reels = [
     document.getElementById('reel2'),
     document.getElementById('reel3'),
     document.getElementById('reel4'),
-    document.getElementById('reel5')
+    document.getElementById('reel5'),
 ];
 
 // Symboler og vekting for spilleautomaten
 const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '🍀', '💎', '💣'];
 const symbolWeights = {
-    '🍒': 4, '🍋': 3, '🍊': 2, '🍉': 1.8,
-    '⭐': 0.8, '🍀': 1.2, '💎': 0.3, '💣': 0.7
+    '🍒': 5, '🍋': 4, '🍊': 2, '🍉': 1.8,
+    '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.6
 };
 
 // Gevinstmultiplikator for antall like symboler
@@ -30,7 +30,7 @@ const winMultipliers = {
 };
 
 // Startbalanse og lånebeløp
-let balance = 40;  // Startbalanse
+let balance = 100  // Startbalanse
 let loan = 0;  // Lånebeløp
 
 // Oppdater balansen i visningen
