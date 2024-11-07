@@ -14,7 +14,7 @@ const reels = [
 const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '🍀', '💎', '💣'];
 const symbolWeights = {
     '🍒': 5, '🍋': 4, '🍊': 2, '🍉': 1.8,
-    '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.6
+    '⭐': 0.8, '🍀': 1.2, '💎': 0.4, '💣': 0.7
 };
 
 // Gevinstmultiplikator for antall like symboler
