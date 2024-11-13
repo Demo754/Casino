@@ -128,6 +128,7 @@ function checkWin(results) {
         if (spinsLeftToPay === 0 && loan > 0) {
             resultDisplay.textContent = 'Du klarte ikke å betale lånet i tide. Du taper!';
             balance = 0;
+            loan = 1000;
         }
     }
 
@@ -142,7 +143,7 @@ function handleLoanCountdown() {
     if (spinsLeftToPay === 0 && loan > 0) {
         resultDisplay.textContent = 'Du klarte ikke å betale lånet i tide. Du taper!';
         balance = 0;
-        loan = 50;
+        loan = 5000;
         updateDisplays();
     }
 }
@@ -151,6 +152,7 @@ function handleLoanCountdown() {
 function spinReels() {
     if (balance < 5) {  // Minimum 5 kr for spinn
         resultDisplay.textContent = "Huset vinner alltid!";
+        loan = 500;
         return;
     }
 
