@@ -180,7 +180,7 @@ function spinReels() {
 
         // Aktiver spin-knappen igjen etter spinn
         spinButton.disabled = false;
-    }, 500);
+    }, 50);
 }
 
 // Start spillet
