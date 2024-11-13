@@ -128,7 +128,7 @@ function checkWin(results) {
         if (spinsLeftToPay === 0 && loan > 0) {
             resultDisplay.textContent = 'Du klarte ikke å betale lånet i tide. Du taper!';
             balance = 0;
-            loan = 0;
+            loan = 1;
         }
     }
 
